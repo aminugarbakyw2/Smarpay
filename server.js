@@ -9,8 +9,7 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
-});
-// Route na donations
+});// Route na donations
 app.get("/donate", (req, res) => {
   res.json({ message: "Donation endpoint ready 💰" });
 });
