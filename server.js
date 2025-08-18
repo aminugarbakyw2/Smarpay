@@ -20,4 +20,24 @@ app.get("/users", (req, res) => {
     { id: 1, name: "Aminu" },
     { id: 2, name: "Garba" }
   ]);
+});const { Pool } = require("pg");
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false } // Render/Postgres security
+});
+
+pool.connect()
+  .then(() => console.log("✅ PostgreSQL connected"))
+  .catch(err => console.error("❌ PostgreSQL error:", err));
+
+// Misali route don duba DB
+app.get("/db-users", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM users");
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("DB Error");
+  }
 });
