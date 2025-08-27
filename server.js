@@ -20,4 +20,13 @@ app.get("/users", (req, res) => {
     { id: 1, name: "Aminu" },
     { id: 2, name: "Garba" }
   ]);
+});// Route na donations
+app.get("/donations", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM donations");
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Database error" });
+  }
 });
